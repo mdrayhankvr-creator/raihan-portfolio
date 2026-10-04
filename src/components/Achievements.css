@@ -1,0 +1,193 @@
+.achievements {
+  border-top: var(--border-width) solid var(--color-border);
+  background: radial-gradient(ellipse at 90% 30%, var(--color-accent-soft), transparent 65%);
+  scroll-margin-top: calc(var(--space-16) + var(--space-4) + var(--space-2));
+}
+
+.achievements:focus-visible {
+  outline-offset: calc(-1 * var(--focus-offset));
+}
+
+.achievements__inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-8);
+  min-height: calc(100vh - 5rem);
+  min-height: calc(100svh - 5rem);
+  padding-block: var(--layout-section-space);
+}
+
+.achievements__eyebrow {
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.achievements__title {
+  margin-top: var(--space-4);
+}
+
+.achievements__timeline {
+  position: relative;
+  display: grid;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.achievements__timeline::before {
+  position: absolute;
+  top: var(--space-3);
+  bottom: var(--space-6);
+  left: var(--space-2);
+  width: var(--border-width);
+  background: var(--gradient-accent);
+  opacity: 0.4;
+  content: '';
+  pointer-events: none;
+}
+
+.achievements__entry {
+  position: relative;
+  display: grid;
+  gap: var(--space-3);
+  min-width: 0;
+  padding-left: var(--space-8);
+}
+
+.achievements__marker {
+  position: absolute;
+  top: var(--space-3);
+  left: var(--space-2);
+  width: var(--space-2);
+  height: var(--space-2);
+  background: var(--color-accent);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 0 0 4px var(--color-background), 0 0 0 5px var(--color-border-strong);
+  transform: translate(-50%, -50%);
+}
+
+.achievements__entry:nth-child(even) .achievements__marker {
+  background: var(--color-accent-secondary);
+}
+
+.achievements__year {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+}
+
+.achievements__year > svg,
+.achievements__result > svg,
+.achievements__detail svg {
+  flex-shrink: 0;
+}
+
+.achievements__card {
+  position: relative;
+  min-width: 0;
+  padding: clamp(var(--space-6), 3vw, var(--space-8));
+}
+
+.achievements__card::before {
+  position: absolute;
+  top: var(--space-6);
+  bottom: var(--space-6);
+  left: 0;
+  width: var(--border-width);
+  background: var(--gradient-accent);
+  opacity: 0.5;
+  content: '';
+  pointer-events: none;
+}
+
+.achievements__card-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.achievements__event {
+  min-width: 0;
+  font-size: var(--text-xl);
+}
+
+.achievements__result {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
+  color: var(--color-accent-secondary);
+  background: var(--color-surface-raised);
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.achievements__details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-8);
+  margin: var(--space-6) 0 0;
+  padding-top: var(--space-4);
+  border-top: var(--border-width) solid var(--color-border);
+  font-size: var(--text-sm);
+}
+
+.achievements__detail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  min-width: 0;
+}
+
+.achievements__detail dt {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+}
+
+.achievements__detail dd {
+  margin: 0;
+  color: var(--color-text);
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 40rem) {
+  .achievements__inner { gap: var(--space-12); }
+
+  .achievements__timeline::before { left: 8.5rem; }
+
+  .achievements__entry {
+    grid-template-columns: 7rem minmax(0, 1fr);
+    gap: var(--space-12);
+    padding-left: 0;
+  }
+
+  .achievements__year {
+    align-self: start;
+    padding-top: var(--space-8);
+  }
+
+  .achievements__marker {
+    top: calc(var(--space-8) + var(--space-3));
+    left: 8.5rem;
+  }
+
+  .achievements__timeline::before {
+    top: calc(var(--space-8) + var(--space-3));
+  }
+}
+.achievements__description { margin-top: var(--space-4); color: var(--color-text-muted); overflow-wrap: anywhere; }

@@ -1,20 +1,258 @@
 :root {
-  font-family: system-ui, sans-serif;
-  line-height: 1.5;
+  color-scheme: dark;
+
+  /* Semantic palette: graphite surfaces with restrained cyan/violet accents. */
+  --color-background: #080b12;
+  --color-surface: #101622;
+  --color-surface-raised: #161e2c;
+  --color-surface-glass: rgb(16 22 34 / 78%);
+  --color-text: #edf2f7;
+  --color-text-muted: #a3afc2;
+  --color-accent: #7dd3fc;
+  --color-accent-hover: #bae6fd;
+  --color-accent-secondary: #b5a4fa;
+  --color-accent-soft: rgb(125 211 252 / 10%);
+  --color-border: #263144;
+  --color-border-strong: #43516a;
+  --color-control-border: #5b6b86;
+  --color-focus: var(--color-accent);
+  --color-selection-background: #244660;
+  --color-selection-text: #f5f9ff;
+
+  /* Atmosphere belongs to the page; content surfaces stay quiet. */
+  --gradient-page:
+    radial-gradient(ellipse 48rem 30rem at 12% 0%, rgb(125 211 252 / 6%), transparent 70%),
+    radial-gradient(ellipse 40rem 28rem at 92% 12%, rgb(181 164 250 / 5%), transparent 70%);
+  --gradient-accent: linear-gradient(120deg, var(--color-accent), var(--color-accent-secondary));
+
+  /* A compact 4px-based spacing scale, with fluid page-level spacing. */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+  --layout-max-width: 72rem;
+  --layout-gutter: clamp(1rem, 3vw, 2.5rem);
+  --layout-section-space: clamp(4rem, 8vw, 7rem);
+  --measure-text: 65ch;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-pill: 999px;
+  --border-width: 1px;
+  --shadow-sm: 0 2px 8px rgb(0 0 0 / 16%);
+  --shadow-md: 0 12px 32px rgb(0 0 0 / 24%);
+  --shadow-inset: inset 0 1px 0 rgb(255 255 255 / 4%);
+  --blur-surface: 16px;
+
+  /* System fonts keep the foundation fast and independent of font services. */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Code', 'SFMono-Regular', Consolas, monospace;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+  --text-3xl: clamp(2rem, 1.5rem + 2vw, 3rem);
+  --text-display: clamp(2.5rem, 1.75rem + 3vw, 4rem);
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --line-height-body: 1.65;
+  --line-height-heading: 1.15;
+  --line-height-code: 1.5;
+  --tracking-tight: -0.03em;
+  --tracking-label: 0.08em;
+
+  --duration-fast: 160ms;
+  --duration-normal: 240ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --focus-width: 2px;
+  --focus-offset: 4px;
+
+  font-family: var(--font-sans);
+  font-size: 100%;
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body);
+  color: var(--color-text);
+  background-color: var(--color-background);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+  background-color: var(--color-background);
+  background-image: var(--gradient-page);
+}
+
+#root,
+.app-shell {
+  min-height: 100vh;
+  min-height: 100svh;
 }
 
 #root {
-  min-height: 100vh;
+  isolation: isolate;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+
+h1 { font-size: var(--text-display); }
+h2 { font-size: var(--text-3xl); }
+h3 { font-size: var(--text-2xl); }
+h4 { font-size: var(--text-xl); }
+h5 { font-size: var(--text-lg); }
+h6 { font-size: var(--text-base); }
+
+p {
+  margin: 0;
+  overflow-wrap: break-word;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration-thickness: 0.06em;
+  text-underline-offset: 0.2em;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button:enabled,
+[role='button'] {
+  cursor: pointer;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: var(--line-height-code);
+}
+
+pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+:focus-visible {
+  outline: var(--focus-width) solid var(--color-focus);
+  outline-offset: var(--focus-offset);
+}
+
+.skip-link { position: fixed; top: 1rem; left: 1rem; z-index: 20; padding: var(--space-3) var(--space-4); color: var(--color-accent); background: var(--color-surface); border: 1px solid var(--color-border-strong); border-radius: var(--radius-md); transform: translateY(-200%); }
+.skip-link:focus { transform: none; }
+
+::selection {
+  color: var(--color-selection-text);
+  background: var(--color-selection-background);
+}
+
+/* Layout primitives: opt in as future sections are introduced. */
+.container {
+  width: min(var(--layout-max-width), calc(100% - var(--layout-gutter) * 2));
+  margin-inline: auto;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-gap, var(--space-6));
+}
+
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--cluster-gap, var(--space-3));
+}
+
+.stack > *,
+.cluster > * {
+  min-width: 0;
+}
+
+/* Solid fallback remains readable when backdrop filtering is unavailable. */
+.surface {
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm), var(--shadow-inset);
+}
+
+.surface--raised {
+  background: var(--color-surface-raised);
+  box-shadow: var(--shadow-md), var(--shadow-inset);
+}
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .surface--glass {
+    background: var(--color-surface-glass);
+    -webkit-backdrop-filter: blur(var(--blur-surface));
+    backdrop-filter: blur(var(--blur-surface));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-normal: 0ms;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0ms !important;
+    scroll-behavior: auto !important;
+  }
 }

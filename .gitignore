@@ -10,7 +10,25 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+/backend/bin/
 *.local
+
+# Generated output and temporary files
+build/
+coverage/
+tmp/
+temp/
+temporary/
+*.tmp
+*.temp
+*.bak
+*.orig
+*.tsbuildinfo
+
+# Environment configuration stays local; only the empty example is committed.
+.env
+.env.*
+!.env.example
 
 # Editor directories and files
 .vscode/*

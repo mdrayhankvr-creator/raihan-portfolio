@@ -1,0 +1,12 @@
+.admin-access { min-height: 100svh; display: grid; place-items: center; padding: var(--space-8) var(--layout-gutter); background: radial-gradient(ellipse at 15% 15%, var(--color-accent-soft), transparent 55%); }
+.admin-login.surface { width: min(100%, 29rem); padding: clamp(1.25rem, 5vw, 2.5rem); }
+.admin-login * { min-width: 0; }
+.admin-login__icon { display: grid; place-items: center; width: 54px; height: 54px; border: 1px solid var(--color-border-strong); border-radius: var(--radius-lg); color: var(--color-accent); background: var(--color-accent-soft); }
+.admin-login__eyebrow { margin: var(--space-6) 0 var(--space-2); font: var(--text-xs) var(--font-mono); color: var(--color-accent-secondary); }
+.admin-login h1 { margin: 0; font-size: var(--text-2xl); letter-spacing: var(--tracking-tight); }
+.admin-login__intro, .admin-login__note { color: var(--color-text-muted); font-size: var(--text-sm); overflow-wrap: anywhere; }
+.admin-login__form.admin-form { grid-template-columns: minmax(0, 1fr); margin-top: var(--space-6); }
+.admin-login__note { margin: var(--space-6) 0 var(--space-3); }
+.admin-login__back { display: inline-flex; align-items: center; gap: var(--space-2); min-height: 44px; font-size: var(--text-sm); }
+.admin-session { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-3); margin-top: var(--space-4); }
+.admin-session > span { color: var(--color-text-muted); font-size: var(--text-sm); overflow-wrap: anywhere; }

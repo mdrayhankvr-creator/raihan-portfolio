@@ -1,0 +1,157 @@
+.about {
+  border-top: var(--border-width) solid var(--color-border);
+  background: linear-gradient(180deg, var(--color-accent-soft), transparent 12rem);
+  scroll-margin-top: calc(var(--space-16) + var(--space-4) + var(--space-2));
+}
+
+.about:focus-visible {
+  outline-offset: calc(-1 * var(--focus-offset));
+}
+
+.about__inner {
+  display: grid;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: calc(100vh - 5rem);
+  min-height: calc(100svh - 5rem);
+  padding-block: var(--layout-section-space);
+}
+
+.about__content {
+  min-width: 0;
+  max-width: var(--measure-text);
+}
+
+.about__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.about__title {
+  margin-top: var(--space-4);
+}
+
+.about__lead {
+  margin-top: var(--space-6);
+  color: var(--color-text);
+  font-size: var(--text-lg);
+}
+
+.about__description {
+  margin-top: var(--space-4);
+  color: var(--color-text-muted);
+}
+
+.about__location {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-6);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.about__location > svg {
+  flex-shrink: 0;
+  color: var(--color-accent-secondary);
+}
+
+.about__card {
+  position: relative;
+  min-width: 0;
+  width: 100%;
+  padding: clamp(var(--space-6), 3vw, var(--space-8));
+}
+
+.about__card::before {
+  position: absolute;
+  top: 0;
+  right: var(--space-6);
+  left: var(--space-6);
+  height: var(--border-width);
+  background: var(--gradient-accent);
+  opacity: 0.4;
+  pointer-events: none;
+  content: '';
+}
+
+.about__card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.about__card-header > div {
+  min-width: 0;
+}
+
+.about__card-mark {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: var(--space-12);
+  height: var(--space-12);
+  color: var(--color-accent-secondary);
+  background: var(--color-surface-raised);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.about__card-caption {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+}
+
+.about__card-title {
+  margin-top: var(--space-1);
+  font-size: var(--text-lg);
+  letter-spacing: normal;
+}
+
+.about__interests {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-6) 0 0;
+  padding: var(--space-6) 0 0;
+  border-top: var(--border-width) solid var(--color-border);
+  list-style: none;
+}
+
+.about__interest {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+  color: var(--color-text);
+  font-size: var(--text-sm);
+}
+
+.about__interest-icon {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: var(--space-8);
+  height: var(--space-8);
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
+  border-radius: var(--radius-sm);
+}
+
+@media (min-width: 56rem) {
+  .about__inner {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: var(--space-16);
+  }
+
+  .about__card {
+    max-width: 27rem;
+    justify-self: end;
+  }
+}
