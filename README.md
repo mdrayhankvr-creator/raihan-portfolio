@@ -149,7 +149,15 @@ Set `MONGODB_URI`, `ADMIN_USERNAME`, and a strong unique `ADMIN_PASSWORD` locall
 go run ./cmd/create-admin
 ```
 
-The command creates a single admin in `admins`, stores only a bcrypt hash, and refuses to overwrite an existing account, even if repeated with different credentials. Server startup never creates or resets an admin. After successful setup, **remove `ADMIN_PASSWORD` and preferably `ADMIN_USERNAME` from the backend environment and `.env`**; save the password in your password manager. Login checks the initialized database record, not environment credentials. Configure `SESSION_SECRET`, then start:
+To reset an existing admin, configure the intended MongoDB URI/database privately in the backend environment or ignored `.env`, then run from `backend`:
+
+```powershell
+go run ./cmd/reset-admin-password --username rayhanjr_22
+```
+
+The command prompts twice with terminal echo disabled; passwords are never accepted as arguments, piped input, or environment values. It reuses the existing password policy and bcrypt cost 12, updates only `passwordHash`, and revokes that account's sessions in one transaction. Account identity, role, and disabled status are preserved; missing accounts are never created. MongoDB must support transactions (a replica set, sharded cluster, or Atlas); there is no non-transactional fallback. For production maintenance, pause API login traffic during the reset so an in-flight login cannot create a session after revocation. No server-session secret is needed by this CLI.
+
+The initialization command creates a single admin in `admins`, stores only a bcrypt hash, and refuses to overwrite an existing account, even if repeated with different credentials. Server startup never creates or resets an admin. After successful setup, **remove `ADMIN_PASSWORD` and preferably `ADMIN_USERNAME` from the backend environment and `.env`**; save the password in your password manager. Login checks the initialized database record, not environment credentials. Configure `SESSION_SECRET`, then start:
 
 ```sh
 go run .

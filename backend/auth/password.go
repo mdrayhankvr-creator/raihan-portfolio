@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"bytes"
 	"context"
 	"errors"
 	"golang.org/x/crypto/bcrypt"
@@ -27,12 +28,20 @@ func InitializeAdmin(ctx context.Context, store Store, username, password string
 	if err != nil {
 		return err
 	}
-	if !utf8.ValidString(password) || utf8.RuneCountInString(password) < 12 || len(password) > 72 || strings.TrimSpace(password) == "" || strings.IndexFunc(password, unicode.IsControl) >= 0 {
-		return errors.New("ADMIN_PASSWORD must contain at least 12 characters, at most 72 UTF-8 bytes, and no control characters")
+	if err := ValidatePassword([]byte(password)); err != nil {
+		return err
 	}
 	hash, err := bcrypt.GenerateFromPassword([]byte(password), PasswordCost)
 	if err != nil {
 		return errors.New("password hashing failed")
 	}
 	return store.CreateAdmin(ctx, Admin{Username: username, PasswordHash: hash, Role: "admin", CreatedAt: time.Now().UTC()})
+}
+
+// ValidatePassword is shared by first-admin initialization and the local reset CLI.
+func ValidatePassword(password []byte) error {
+	if !utf8.Valid(password) || utf8.RuneCount(password) < 12 || len(password) > 72 || len(bytes.TrimSpace(password)) == 0 || bytes.IndexFunc(password, unicode.IsControl) >= 0 {
+		return errors.New("ADMIN_PASSWORD must contain at least 12 characters, at most 72 UTF-8 bytes, and no control characters")
+	}
+	return nil
 }
