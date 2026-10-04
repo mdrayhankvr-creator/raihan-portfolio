@@ -220,6 +220,16 @@ For live HTTP authentication/CRUD checks, explicitly set `PORTFOLIO_API_TEST_URL
 
 ### Deployment requirements and limitations
 
+#### Vercel production API proxy
+
+In Vercel project Settings → Environment Variables, set `VITE_API_BASE_URL=/api` for **Production**, then deploy this configuration with a fresh build. Vite embeds the value at build time. The Render URL belongs only in the server-side rewrite, not frontend code.
+
+`vercel.json` forwards `/api/:path*` to `https://raihan-portfolio-api.onrender.com/api/:path*` before the SPA fallback. The browser calls its own Vercel origin. The proxy forwards request cookies/headers and upstream `Set-Cookie`; API responses retain `Cache-Control: no-store`, and rewrite caching is explicitly disabled. HttpOnly, Secure, SameSite=Strict, and the existing origin/custom-header CSRF protections stay unchanged.
+
+Render's `CORS_ORIGINS` must include exactly `https://raihan-portfolio-xi.vercel.app` (no trailing slash), with `APP_ENV=production` and `COOKIE_SECURE=true`. Keep secrets private. Preserve `Origin`, `Sec-Fetch-Site`, `X-Admin-Request`, `Cookie`, and `Set-Cookie`; do not replace origins or allow wildcards. Preview/custom domains need explicit approval in the allowlist.
+
+After deployment, verify `/api/health` returns JSON and anonymous `/api/auth/me` returns JSON 401 on the Vercel domain. Check login/session/CRUD/logout, Secure/HttpOnly/Strict cookies, no cached auth responses, and rejection of untrusted origins or missing request markers. No browser API requests should go directly to Render.
+
 Production must set `APP_ENV=production`, `COOKIE_SECURE=true`, explicit HTTPS `CORS_ORIGINS`, a fresh private random `SESSION_SECRET`, private MongoDB configuration, and HTTPS for both frontend and API. Prefer serving `/api` through the same site's reverse proxy; cross-site authentication is intentionally unsupported by SameSite=Strict. Set HOST appropriately for your host, keep MongoDB network access restricted, and configure SPA fallback for `/admin` and `/admin/login`. This repository does not deploy services or issue TLS certificates.
 
 API responses set no-store, nosniff, frame denial, a restrictive API CSP, and no-referrer; production also sets HSTS. These headers do not configure the separately hosted React HTML: configure its CSP, frame protection, and HTTPS headers at the frontend host. HttpOnly prevents JavaScript from reading a session but does not prevent malicious same-origin code from sending authenticated requests; XSS prevention and trusted dependencies still matter.
